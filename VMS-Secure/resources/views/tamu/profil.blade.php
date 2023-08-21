@@ -124,6 +124,9 @@
                 'email': formData.email,
                 'alamat': formData.alamat
             },
+            headers: {
+                'X-XSRF-TOKEN': '{{ Cookie::get('XSRF-TOKEN') }}'
+            },
             success: function(success) {
                 console.log(success);
                 location.reload();

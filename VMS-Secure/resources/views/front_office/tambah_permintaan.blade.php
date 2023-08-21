@@ -19,6 +19,7 @@
             <!--Table Card-->
             <div class="bg-white border rounded shadow">
                 <form method="POST" action="{{ route('fo.permintaan.tambah') }}" x-data="{jabatan : ''}">
+                    @csrf
                     <div class="border-b p-3">
                         @if($pesan = Session::get('gagal'))
                         <div class="bg-red-500 text-white w-full text-center rounded mb-6 p-1">

@@ -33,6 +33,7 @@
                     </div>
                     @endif
                     <form method="POST" @submit.prevent="submit()">
+                        @csrf
                         <div style="display: none;" x-show="showDetail" class="relative pb-11 px-6">
                             <div x-data="{formData()}">
                                 <table class="w-full p-5 text-gray-700">

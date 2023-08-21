@@ -276,6 +276,7 @@
             type: 'POST',
             url: window.location.origin + "/admin/pegawai/update",
             data: {
+                '_token' : '{{ csrf_token() }}',
                 'id': formData.id,
                 'nama': formData.nama,
                 'nip': formData.nip,
@@ -283,6 +284,9 @@
                 'no_telepon': formData.no_telepon,
                 'email': formData.email,
                 'alamat': formData.alamat
+            },
+            headers: {
+                'X-XSRF-TOKEN': '{{ Cookie::get('XSRF-TOKEN') }}'
             },
             success: function(success) {
                 console.log(success.sukses);

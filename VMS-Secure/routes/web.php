@@ -93,7 +93,7 @@ Route::prefix('/user')
 // ADMIN ROUTES
 Route::prefix('/admin')
     ->controller(AdminController::class)
-    // ->middleware(AdminMiddleware::class)
+    ->middleware(AdminMiddleware::class)
     ->group(function () {
         Route::get('/', 'index')->name('admin.index');
         Route::get('/profil', 'profil')->name('admin.profil');

@@ -34,6 +34,7 @@
             </div>
             @endif
             <form autocomplete="off" method="POST" action="{{ route('user.daftar') }}">
+                @csrf
                 <!-- <input type="text" class="block border border-gray-400 w-full p-3 rounded mb-4" name="nik" placeholder="NIK" /> -->
                 <!-- <input required type="text" class="block border border-gray-400 w-full p-3 rounded mb-4" name="nama" placeholder="Nama Lengkap" /> -->
                 <!-- <input type="number" class="block border border-gray-400 w-full p-3 rounded mb-4" name="no_telepon" placeholder="No. Telepon" />

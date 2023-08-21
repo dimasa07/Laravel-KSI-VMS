@@ -47,6 +47,7 @@
 
                 <div x-show="!showFormEdit" class="p-5" x-data="{ permintaan:null, showConfirmDelete:false }">
                     <form method="POST" @submit.prevent="submit()">
+                        @csrf
                         <div style="display: none;" x-show="showDetail" class="relative pb-11 px-6"
                             x-data="{ showConfirmTolak:false }">
                             <div x-data="{formData()}">
@@ -194,6 +195,7 @@
 
                 <div style="display: none;" x-show="showFormEdit" class="p-5">
                     <form method="POST" action="{{ route('fo.permintaan.update') }}" x-data="{jabatan : ''}">
+                        @csrf
                         <div class="border-b p-3">
                             <h5 class="font-bold uppercase text-gray-600">Form Data Tamu</h5>
                         </div>

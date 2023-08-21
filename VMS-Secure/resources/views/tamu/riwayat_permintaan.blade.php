@@ -166,6 +166,7 @@
 
                 <div style="display: none;" x-show="showFormEdit" class="p-5">
                     <form method="POST" action="{{ route('tamu.permintaan.update') }}" x-data="{jabatan : ''}">
+                        @csrf
                         <div class="grid grid-cols-2 relative">
                             <div class="px-5">
                                 <div class="mb-6 form-group">

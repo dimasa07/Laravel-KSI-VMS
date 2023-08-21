@@ -95,10 +95,14 @@
             type: 'POST',
             url: window.location.origin + "/tamu/akun/update",
             data: {
+                '_token' : '{{ csrf_token() }}',
                 'id': formData.id,
                 'role': formData.role,
                 'username': formData.username == null ? '{{$akun->username}}' : formData.username,
                 'password': formData.password
+            },
+            headers: {
+                'X-XSRF-TOKEN': '{{ Cookie::get('XSRF-TOKEN') }}'
             },
             success: function(success) {
                 // console.log("sukses");

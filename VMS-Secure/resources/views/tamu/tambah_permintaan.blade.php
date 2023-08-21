@@ -38,6 +38,7 @@
                     </div>
                     @endif
                     <form method="POST" action="{{ route('tamu.permintaan.tambah') }}" x-data="{jabatan : ''}">
+                        @csrf
                         <div class="relative grid grid-cols-2">
                             <div class="px-5">
                                 <div class="mb-6 form-group">
