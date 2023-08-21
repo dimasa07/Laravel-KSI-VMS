@@ -16,9 +16,15 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+
+        // return response()->json([
+        //     'X-CSRF-TOKEN' => $request->header('X-CSRF-TOKEN'),
+        //     '_token' => $request->input('_token')
+        // ]);
+
         $role = $request->session()->get('role');
         if ($role == 'ADMIN') {
-            return $next($request);
+            return $next($request); 
         }
 
         return redirect(route("user.login"));

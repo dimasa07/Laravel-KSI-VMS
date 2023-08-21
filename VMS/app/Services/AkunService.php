@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Models\Akun;
 
+use Hash;
+
 class AkunService
 {
     public function save(Akun $akun)
@@ -88,8 +90,11 @@ class AkunService
     {
         $akun = Akun::where([
             ['username', '=', $username],
-            ['password', '=', $password]
+            // ['password', '=', $password]
         ])->first();
+        if(!is_null($akun) && !Hash::check($password, $akun->password)){
+            $akun = null;
+        }
         $rs = new ResultSet();
         $rs->hasil->tipe = 'Object';
         if (is_null($akun)) {

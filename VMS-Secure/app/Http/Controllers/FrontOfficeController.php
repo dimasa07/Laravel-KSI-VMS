@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\BukuTamu;
 use App\Models\PermintaanBertamu;
 use App\Models\Tamu;
@@ -349,8 +351,7 @@ class FrontOfficeController extends Controller
 
     public function profil(Request $request)
     {
-        $rs = $this->pegawaiService->getByNIP($request->session()->get('nip'));
-        $frontOffice = $rs->hasil->data;
+        $frontOffice = Auth::user()->pegawai;
         return view('front_office.profil', compact('frontOffice'));
         // return response()->json($admin);
     }

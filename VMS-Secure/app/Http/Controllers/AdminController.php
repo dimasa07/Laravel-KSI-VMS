@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\Akun;
 use App\Models\Pegawai;
 use App\Services\AkunService;
@@ -18,6 +20,8 @@ use Illuminate\Support\Facades\Session;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Dompdf\Options;
 use Dompdf\Dompdf;
+
+use Hash;
 
 
 class AdminController extends Controller
@@ -129,8 +133,8 @@ class AdminController extends Controller
 
     public function profil(Request $request)
     {
-        $rs = $this->pegawaiService->getByNIP($request->session()->get('nip'));
-        $admin = $rs->hasil->data;
+        // $rs = $this->pegawaiService->getByNIP($request->session()->get('nip'));
+        $admin = Auth::user()->pegawai;
         return view('admin.profil', compact('admin'));
         // return response()->json($admin);
     }
@@ -355,13 +359,21 @@ class AdminController extends Controller
 
     public function updateAkun(Request $request)
     {
-        $rs = $this->akunService->update($request->input('id'), $request->input());
+        $arr = $request->input();
+        if($request->password)
+            $arr['password']  = Hash::make($request->passwword);
+        $rs = $this->akunService->update($request->input('id'), $arr);
         if ($rs->sukses) {
             $request->session()->put('username', $rs->hasil->data->username);
         }
         $tipe = $rs->sukses ? 'sukses' : 'gagal';
         Session::flash($tipe, $rs->pesan[0]);
-        return response()->json($rs);
+        // return response()->json($rs);
+        return response()->json([
+                'XSRF-TOKEN' => $request->header('XSRF-TOKEN'),
+                '_token' => $request->input('_token'),
+                'request token' => $request->session()->token(),
+        ]);
     }
 
     public function updatePegawai(Request $request)

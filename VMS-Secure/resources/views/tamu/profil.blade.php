@@ -116,6 +116,7 @@
             type: 'POST',
             url: window.location.origin + "/tamu/profil/update",
             data: {
+                '_token' : '{{ csrf_token() }}',
                 'id': formData.id,
                 'nama': formData.nama,
                 'nik': formData.nik,

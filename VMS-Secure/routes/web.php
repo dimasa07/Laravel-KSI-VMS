@@ -21,6 +21,10 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::get('/', function () {
+    return view('beranda');
+})->name('login');
+
 Route::get('/', function (Request $request) {
     $request->session()->flush();
     return view('beranda');
@@ -84,16 +88,26 @@ Route::prefix('/user')
         Route::get('/logout', 'logout')->name('user.logout');
     });
 
+
+
 // ADMIN ROUTES
 Route::prefix('/admin')
     ->controller(AdminController::class)
-    ->middleware(AdminMiddleware::class)
+    // ->middleware(AdminMiddleware::class)
     ->group(function () {
         Route::get('/', 'index')->name('admin.index');
         Route::get('/profil', 'profil')->name('admin.profil');
         Route::post('/profil/update', 'updateProfil')->name('admin.profil.update');
         Route::get('/akun', 'akun')->name('admin.akun');
         Route::post('/akun/update', 'updateAkun')->name('admin.akun.update');
+        // Route::post('/akun/update', function(Request $request){
+        //     return response()->json([
+        //         'XSRF-TOKEN' => $request->header('XSRF-TOKEN'),
+        //         '_token' => $request->input('_token'),
+        //         'request token' => $request->session()->token(),
+        //         'session token' => $request->session()->get('_token')
+        //     ]);
+        // })->name('admin.akun.update');
         Route::get('/permintaan/all', 'allPermintaanBertamu')->name('admin.permintaan.all');
         Route::get('/permintaan/setujui/{idPermintaan}', 'setujuiPermintaan')->name('admin.permintaan.setujui');
         Route::post('/permintaan/tolak', 'tolakPermintaan')->name('admin.permintaan.tolak');

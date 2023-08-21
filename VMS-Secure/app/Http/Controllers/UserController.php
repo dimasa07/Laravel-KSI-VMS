@@ -58,6 +58,7 @@ class UserController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
             $akun = Auth::user();
             $akun->pegawai;
             $akun->tamu;
@@ -92,10 +93,7 @@ class UserController extends Controller
                 $route = "fo.index";
             }
             $request->session()->put('id', $id);
-            
 
-            
-            $request->session()->regenerate();
             // return redirect()->route($route)->with('info', 'Selamat datang ' . $request->session()->get('nama', $akun->username));
             return redirect()->route($route)->with('info', 'Selamat datang ' . Auth::user()->username);
 
@@ -109,12 +107,16 @@ class UserController extends Controller
 
     public function logout(Request $request)
     {
-        $request->session()->forget('id');
-        $request->session()->forget('nik');
-        $request->session()->forget('nip');
-        $request->session()->forget('username');
-        $request->session()->forget('role');
-        $request->session()->forget('nama');
+        // $request->session()->forget('id');
+        // $request->session()->forget('nik');
+        // $request->session()->forget('nip');
+        // $request->session()->forget('username');
+        // $request->session()->forget('role');
+        // $request->session()->forget('nama');
+
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         return redirect()->route('beranda');
     }

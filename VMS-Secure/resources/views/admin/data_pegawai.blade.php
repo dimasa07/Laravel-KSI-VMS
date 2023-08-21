@@ -304,7 +304,7 @@
             type: 'POST',
             url: window.location.origin + "/admin/pegawai/tambah",
             data: {
-                'id': formData.id,
+                '_token' : '{{ csrf_token() }}',
                 'nama': formData.nama,
                 'nip': formData.nip,
                 'jabatan': formData.jabatan,
@@ -312,17 +312,15 @@
                 'email': formData.email,
                 'alamat': formData.alamat
             },
+            headers: {
+                'X-XSRF-TOKEN': '{{ Cookie::get('XSRF-TOKEN') }}'
+            },
             success: function(success) {
                 console.log(success.sukses);
                 location.reload();
-                // if(success.sukses){
-                //     $('#sukses').css('display','');
-                // }
             },
             error: function(error) {
                 console.log(error);
-                // document.body.innerHTML = success;
-                // location.reload();
             }
         });
     }

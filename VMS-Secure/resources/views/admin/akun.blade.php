@@ -42,11 +42,11 @@
                                         <td class="w-6">:</td>
                                         <td>{{ $akun->username }}</td>
                                     </tr>
-                                    <tr>
+                                   {{--  <tr>
                                         <td class="w-40">Password</td>
                                         <td class="w-6">:</td>
                                         <td>{{ $akun->password }}</td>
-                                    </tr>
+                                    </tr> --}}
                                 </tbody>
                             </table>
                             <table style="display: none;" class="w-full p-5 text-gray-700" x-show="showFormEdit">
@@ -62,12 +62,12 @@
                                         <td><input required x-model="formData.username" class="px-1 border border-gray-600" type="text" name="username" :value="akun.username"></td>
 
                                     </tr>
-                                    <tr>
+                                   {{--  <tr>
                                         <td class="w-40">Password</td>
                                         <td class="w-6">:</td>
                                         <td><input required x-model="formData.password" class="px-1 border border-gray-600" type="text" name="password" :value="akun.password"></td>
 
-                                    </tr>
+                                    </tr> --}}
                                 </tbody>
                             </table>
                             <div class="inline-flex absolute right-0 bottom-0">
@@ -94,13 +94,17 @@
             type: 'POST',
             url: window.location.origin + "/admin/akun/update",
             data: {
+                '_token' : '{{ csrf_token() }}',
                 'id': formData.id,
                 'role': formData.role,
                 'username': formData.username == null ? '{{$akun->username}}' : formData.username,
                 'password': formData.password
             },
+            headers: {
+                'X-XSRF-TOKEN': '{{ Cookie::get('XSRF-TOKEN') }}'
+            },
             success: function(success) {
-                // console.log("sukses");
+                console.log(success);
                 location.reload();
             },
             error: function(error) {

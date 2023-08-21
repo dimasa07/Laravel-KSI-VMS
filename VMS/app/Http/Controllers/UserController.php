@@ -10,6 +10,8 @@ use App\Services\ResultSet;
 use App\Services\TamuService;
 use Illuminate\Http\Request;
 
+use Hash;
+
 class UserController extends Controller
 {
 
@@ -142,6 +144,7 @@ class UserController extends Controller
         } else {
             $akun = new Akun();
             $akun->fill($request->input());
+            $akun->password = Hash::make($password);
             $rsSave = $this->akunService->save($akun);
             if ($rsSave->sukses) {
                 $rs->pesan[] = 'Sukses daftar.';
